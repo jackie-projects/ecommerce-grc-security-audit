@@ -1,0 +1,1440 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>
+GRC Security Health Check
+</title>
+
+
+<style>
+
+/* ============================================================
+   BASE
+   ============================================================ */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    background: #eef2f7;
+}
+
+body {
+
+    margin: 0;
+
+    background:
+        linear-gradient(
+            180deg,
+            #eef2f7 0%,
+            #f8fafc 100%
+        );
+
+    color: #1f2937;
+
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Helvetica,
+        Arial,
+        sans-serif;
+
+    line-height: 1.6;
+}
+
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+
+.topbar {
+
+    background: #0f172a;
+
+    color: white;
+
+    padding:
+        34px 20px;
+
+    border-bottom:
+        4px solid #2563eb;
+}
+
+.topbar-inner {
+
+    max-width: 1100px;
+
+    margin: auto;
+}
+
+.eyebrow {
+
+    color: #60a5fa;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    letter-spacing: 1.5px;
+
+    text-transform: uppercase;
+}
+
+.topbar h1 {
+
+    margin:
+        5px 0 5px;
+
+    font-size: 30px;
+
+    letter-spacing:
+        -0.6px;
+}
+
+.topbar p {
+
+    margin: 0;
+
+    color: #cbd5e1;
+
+    font-size: 14px;
+}
+
+
+/* ============================================================
+   MAIN CONTAINER
+   ============================================================ */
+
+.container {
+
+    width:
+        calc(100% - 32px);
+
+    max-width:
+        1100px;
+
+    margin:
+        28px auto 60px;
+}
+
+
+/* ============================================================
+   ATTENTION SECTION
+   ============================================================ */
+
+.attention-section {
+
+    background: white;
+
+    padding:
+        30px;
+
+    border-radius:
+        14px;
+
+    box-shadow:
+        0 8px 30px
+        rgba(15, 23, 42, 0.08);
+
+    margin-bottom:
+        24px;
+}
+
+.section-label {
+
+    color: #2563eb;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    letter-spacing: 1.4px;
+
+    text-transform: uppercase;
+
+    margin-bottom:
+        5px;
+}
+
+.attention-heading {
+
+    border: none !important;
+
+    background: none !important;
+
+    padding: 0 !important;
+
+    margin:
+        0 0 5px !important;
+
+    font-size: 27px !important;
+
+    color: #0f172a !important;
+}
+
+.attention-intro {
+
+    color: #64748b;
+
+    margin:
+        0 0 24px;
+}
+
+
+/* ============================================================
+   PRIORITY GRID
+   ============================================================ */
+
+.priority-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 16px;
+}
+
+
+/* ============================================================
+   PRIORITY CARD
+   ============================================================ */
+
+.priority-card {
+
+    border-radius:
+        10px;
+
+    border:
+        1px solid #e2e8f0;
+
+    overflow:
+        hidden;
+
+    background:
+        #ffffff;
+}
+
+.priority-header {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding:
+        15px 16px;
+
+    border-bottom:
+        1px solid #e2e8f0;
+}
+
+.priority-icon {
+
+    width: 34px;
+
+    height: 34px;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-weight: 800;
+
+    flex-shrink: 0;
+}
+
+.priority-title {
+
+    font-size: 15px;
+
+    font-weight: 800;
+
+    letter-spacing:
+        0.3px;
+}
+
+.priority-subtitle {
+
+    font-size: 12px;
+
+    color: #64748b;
+}
+
+.priority-count {
+
+    margin-left: auto;
+
+    font-size: 20px;
+
+    font-weight: 800;
+}
+
+.priority-list {
+
+    list-style: none;
+
+    padding:
+        12px 16px 14px;
+
+    margin: 0;
+}
+
+.priority-list li {
+
+    padding:
+        7px 0;
+
+    border-bottom:
+        1px solid #f1f5f9;
+
+    font-size: 13px;
+
+    line-height: 1.45;
+}
+
+.priority-list li:last-child {
+    border-bottom: none;
+}
+
+.empty-item {
+    color: #94a3b8;
+    font-style: italic;
+}
+
+
+/* RED */
+
+.priority-red {
+    border-top:
+        4px solid #dc2626;
+}
+
+.priority-red .priority-icon {
+    background: #fee2e2;
+    color: #dc2626;
+}
+
+.priority-red .priority-count {
+    color: #dc2626;
+}
+
+
+/* ORANGE */
+
+.priority-orange {
+    border-top:
+        4px solid #ea580c;
+}
+
+.priority-orange .priority-icon {
+    background: #ffedd5;
+    color: #ea580c;
+}
+
+.priority-orange .priority-count {
+    color: #ea580c;
+}
+
+
+/* YELLOW */
+
+.priority-yellow {
+    border-top:
+        4px solid #ca8a04;
+}
+
+.priority-yellow .priority-icon {
+    background: #fef9c3;
+    color: #a16207;
+}
+
+.priority-yellow .priority-count {
+    color: #a16207;
+}
+
+
+/* BLUE */
+
+.priority-blue {
+    border-top:
+        4px solid #2563eb;
+}
+
+.priority-blue .priority-icon {
+    background: #dbeafe;
+    color: #2563eb;
+}
+
+.priority-blue .priority-count {
+    color: #2563eb;
+}
+
+
+/* ============================================================
+   DASHBOARD NOTE
+   ============================================================ */
+
+.dashboard-note {
+
+    margin-top:
+        20px;
+
+    padding:
+        12px 15px;
+
+    background:
+        #f8fafc;
+
+    border:
+        1px solid #e2e8f0;
+
+    border-radius:
+        7px;
+
+    font-size:
+        12px;
+
+    color:
+        #64748b;
+}
+
+.dashboard-note strong {
+
+    color:
+        #334155;
+
+    margin-right:
+        10px;
+}
+
+
+/* ============================================================
+   WORKING SECTION
+   ============================================================ */
+
+.working-section {
+
+    background: white;
+
+    padding:
+        28px 30px;
+
+    border-radius:
+        14px;
+
+    box-shadow:
+        0 8px 30px
+        rgba(15, 23, 42, 0.06);
+
+    margin-bottom:
+        24px;
+}
+
+.working-section h2 {
+
+    margin:
+        0 0 14px;
+
+    padding: 0;
+
+    background: none;
+
+    border: none;
+
+    color:
+        #0f172a;
+
+    font-size:
+        22px;
+}
+
+.working-list {
+
+    list-style:
+        none;
+
+    padding: 0;
+
+    margin: 0;
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap:
+        10px;
+}
+
+.working-list li {
+
+    background:
+        #f0fdf4;
+
+    border:
+        1px solid #bbf7d0;
+
+    border-radius:
+        7px;
+
+    padding:
+        10px 12px;
+
+    font-size:
+        13px;
+}
+
+.check {
+
+    color:
+        #16a34a;
+
+    font-weight:
+        800;
+
+    margin-right:
+        7px;
+}
+
+
+/* ============================================================
+   DETAILED REPORT
+   ============================================================ */
+
+.detailed-report {
+
+    background:
+        white;
+
+    padding:
+        38px 42px;
+
+    border-radius:
+        14px;
+
+    box-shadow:
+        0 8px 30px
+        rgba(15, 23, 42, 0.06);
+
+    overflow:
+        hidden;
+}
+
+
+/* ============================================================
+   REPORT HEADINGS
+   ============================================================ */
+
+.detailed-report h1 {
+
+    color:
+        #0f172a;
+
+    font-size:
+        30px;
+
+    line-height:
+        1.25;
+
+    margin:
+        0 0 25px;
+
+    padding-bottom:
+        14px;
+
+    border-bottom:
+        3px solid #2563eb;
+}
+
+.detailed-report h2 {
+
+    color:
+        #0f172a;
+
+    font-size:
+        22px;
+
+    line-height:
+        1.3;
+
+    margin:
+        42px 0 16px;
+
+    padding:
+        11px 14px;
+
+    background:
+        #f1f5f9;
+
+    border-left:
+        5px solid #2563eb;
+
+    border-radius:
+        5px;
+}
+
+.detailed-report h3 {
+
+    color:
+        #1e3a8a;
+
+    font-size:
+        18px;
+
+    margin:
+        28px 0 10px;
+}
+
+
+/* ============================================================
+   TEXT
+   ============================================================ */
+
+.detailed-report p {
+
+    font-size:
+        14px;
+
+    margin:
+        0 0 16px;
+}
+
+.detailed-report strong {
+    color:
+        #111827;
+}
+
+
+/* ============================================================
+   LISTS
+   ============================================================ */
+
+.detailed-report ul {
+
+    padding-left:
+        24px;
+
+    margin:
+        10px 0 20px;
+}
+
+.detailed-report li {
+
+    margin-bottom:
+        7px;
+}
+
+
+/* ============================================================
+   TABLES
+   ============================================================ */
+
+.table-wrap {
+
+    width:
+        100%;
+
+    overflow-x:
+        auto;
+
+    margin:
+        20px 0 28px;
+
+    border:
+        1px solid #dbe3ec;
+
+    border-radius:
+        8px;
+}
+
+.detailed-report table {
+
+    width:
+        100%;
+
+    min-width:
+        620px;
+
+    border-collapse:
+        collapse;
+
+    font-size:
+        13px;
+}
+
+.detailed-report th {
+
+    background:
+        #0f172a;
+
+    color:
+        white;
+
+    text-align:
+        left;
+
+    padding:
+        10px 12px;
+}
+
+.detailed-report td {
+
+    padding:
+        9px 12px;
+
+    border-bottom:
+        1px solid #e5e7eb;
+
+    vertical-align:
+        top;
+}
+
+.detailed-report tr:nth-child(even) td {
+    background:
+        #f8fafc;
+}
+
+
+/* ============================================================
+   CODE
+   ============================================================ */
+
+.code-block {
+
+    width:
+        100%;
+
+    overflow-x:
+        auto;
+
+    white-space:
+        pre-wrap;
+
+    word-break:
+        break-word;
+
+    background:
+        #0f172a;
+
+    color:
+        #e2e8f0;
+
+    padding:
+        17px;
+
+    border-radius:
+        8px;
+
+    font-family:
+        Consolas,
+        "Courier New",
+        monospace;
+
+    font-size:
+        12px;
+
+    line-height:
+        1.5;
+}
+
+
+/* ============================================================
+   MOBILE
+   ============================================================ */
+
+@media (max-width: 760px) {
+
+    .priority-grid {
+        grid-template-columns:
+            1fr;
+    }
+
+    .working-list {
+        grid-template-columns:
+            1fr;
+    }
+
+    .container {
+        width:
+            calc(100% - 16px);
+    }
+
+    .attention-section,
+    .working-section,
+    .detailed-report {
+        padding:
+            22px 18px;
+    }
+
+    .topbar {
+        padding:
+            26px 16px;
+    }
+
+    .topbar h1 {
+        font-size:
+            24px;
+    }
+}
+
+
+/* ============================================================
+   PRINT / PDF
+   ============================================================ */
+
+@media print {
+
+    html,
+    body {
+        background:
+            white;
+    }
+
+    .topbar {
+        background:
+            white;
+
+        color:
+            black;
+
+        border-bottom:
+            2px solid black;
+    }
+
+    .topbar p {
+        color:
+            #333;
+    }
+
+    .container {
+        width:
+            100%;
+
+        max-width:
+            none;
+
+        margin:
+            0;
+    }
+
+    .attention-section,
+    .working-section,
+    .detailed-report {
+        box-shadow:
+            none;
+
+        border:
+            1px solid #ddd;
+
+        margin-bottom:
+            15px;
+    }
+
+    .priority-card {
+        break-inside:
+            avoid;
+    }
+
+    table {
+        break-inside:
+            avoid;
+    }
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<header class="topbar">
+
+    <div class="topbar-inner">
+
+        <div class="eyebrow">
+            Internal Security Assessment
+        </div>
+
+        <h1>
+            GRC Security Health Check
+        </h1>
+
+        <p>
+            Cloudflare · Hostinger · WordPress · WooCommerce
+        </p>
+
+    </div>
+
+</header>
+
+
+<main class="container">
+
+
+    
+
+<section class="attention-section">
+
+    <div class="section-label">
+        SECURITY HEALTH CHECK
+    </div>
+
+    <h2 class="attention-heading">
+        Attention Needed
+    </h2>
+
+    <p class="attention-intro">
+        A quick view of the areas identified by this assessment.
+        Detailed evidence and recommendations appear below.
+    </p>
+
+
+    <div class="priority-grid">
+
+        
+    <div class="priority-card priority-red">
+
+        <div class="priority-header">
+
+            <div class="priority-icon">
+                !
+            </div>
+
+            <div>
+
+                <div class="priority-title">
+                    TODAY
+                </div>
+
+                <div class="priority-subtitle">
+                    Immediate attention
+                </div>
+
+            </div>
+
+            <div class="priority-count">
+                0
+            </div>
+
+        </div>
+
+        <ul class="priority-list">
+
+            <li class="empty-item">No items specifically identified in the report.</li>
+
+        </ul>
+
+    </div>
+    
+
+        
+    <div class="priority-card priority-orange">
+
+        <div class="priority-header">
+
+            <div class="priority-icon">
+                !
+            </div>
+
+            <div>
+
+                <div class="priority-title">
+                    THIS WEEK
+                </div>
+
+                <div class="priority-subtitle">
+                    Short-term improvements
+                </div>
+
+            </div>
+
+            <div class="priority-count">
+                0
+            </div>
+
+        </div>
+
+        <ul class="priority-list">
+
+            <li class="empty-item">No items specifically identified in the report.</li>
+
+        </ul>
+
+    </div>
+    
+
+        
+    <div class="priority-card priority-yellow">
+
+        <div class="priority-header">
+
+            <div class="priority-icon">
+                →
+            </div>
+
+            <div>
+
+                <div class="priority-title">
+                    NEXT 3 MONTHS
+                </div>
+
+                <div class="priority-subtitle">
+                    Planned improvements
+                </div>
+
+            </div>
+
+            <div class="priority-count">
+                0
+            </div>
+
+        </div>
+
+        <ul class="priority-list">
+
+            <li class="empty-item">No items specifically identified in the report.</li>
+
+        </ul>
+
+    </div>
+    
+
+        
+    <div class="priority-card priority-blue">
+
+        <div class="priority-header">
+
+            <div class="priority-icon">
+                i
+            </div>
+
+            <div>
+
+                <div class="priority-title">
+                    INFORMATIONAL
+                </div>
+
+                <div class="priority-subtitle">
+                    Review when appropriate
+                </div>
+
+            </div>
+
+            <div class="priority-count">
+                1
+            </div>
+
+        </div>
+
+        <ul class="priority-list">
+
+            <li>Assessment</li>
+
+        </ul>
+
+    </div>
+    
+
+    </div>
+
+
+    <div class="dashboard-note">
+
+        <strong>1 categorized item(s)</strong>
+
+        <span>
+            Priority is based only on information explicitly
+            identified in the generated assessment.
+        </span>
+
+    </div>
+
+</section>
+
+
+
+    
+    <section class="working-section">
+
+        <div class="section-label">
+            POSITIVE EVIDENCE
+        </div>
+
+        <h2>
+            What is Working
+        </h2>
+
+        <ul class="working-list">
+
+            
+        <li>
+            <span class="check">✓</span>
+            pass, evidence-limited assessment**. Policy language is largely sound; operational and technical verification remains incomplete in several critical areas.
+        </li>
+        
+        <li>
+            <span class="check">✓</span>
+            passwords, or WordPress application passwords (not exposed in this report)
+        </li>
+        
+        <li>
+            <span class="check">✓</span>
+            pass or fail, per audit rules.
+        </li>
+        
+        <li>
+            <span class="check">✓</span>
+            pass rule), to obtain WordPress core version, plugin inventory, patch status, WooCommerce version, and administrator count.
+        </li>
+        
+        <li>
+            <span class="check">✓</span>
+            successful API call was **not** treated as evidence of compliance in itself; each response was evaluated for whether it actually demonstrated the control state.
+        </li>
+        
+        <li>
+            <span class="check">✓</span>
+            enabled: `max_age=31536000`, `include_subdomains=true`, `preload=false`.
+        </li>
+        
+        <li>
+            <span class="check">✓</span>
+            enabled, created 2026-08-23.
+        </li>
+        
+        <li>
+            <span class="check">✓</span>
+            configured, role-overlap not documented).
+        </li>
+        
+
+        </ul>
+
+    </section>
+    
+
+
+    <section class="detailed-report">
+
+        <div class="section-label">
+            DETAILED ASSESSMENT
+        </div>
+
+        <h1>GRC Compliance Gap Report</h1>
+<p><strong>Organization:</strong> Example-shop (example-shop.com)<br><strong>Report Type:</strong> Final GRC Compliance Gap Report<br><strong>Assessment Timestamp:</strong> 2026-09-27T20:10:23.852480+00:00<br><strong>Telemetry Collection Timestamp:</strong> 2026-09-27T20:06:47.654273+00:00<br><strong>Policy Version Reviewed:</strong> SEC-POL-v2.2 (effective 2026-09-27)<br><strong>Lead Auditor:</strong> GRC Audit Function<br><hr><br><h2>1. Executive Summary</h2></p>
+<p>This report presents the combined findings of a two-part GRC assessment: (a) a textual alignment review of the E-Commerce Platform Security Policy (SEC-POL-v2.2) against a custom internal control baseline, and (b) a live technical telemetry review of the Cloudflare, Hostinger, WordPress, and WooCommerce environment supporting example-shop.com.</p>
+<p><strong>Headline findings:</strong><br><ul><li><strong>Policy documentation</strong> has improved substantially since the prior review cycle and now provides strong textual coverage of nearly all baseline controls. However, the policy&#x27;s own Appendix of Open Items independently confirms that several controls are <strong>written but not yet operational</strong> (incident response plan not attached, asset inventory incomplete, alerting not configured, role-overlap not documented).</li><br><li><strong>Live technical telemetry</strong> confirms strong TLS/HTTPS enforcement at the Cloudflare edge but reveals that Cloudflare&#x27;s `security_level` is set to `essentially_off`, materially weakening edge-layer threat detection.</li><br><li><strong>A significant portion of the environment could not be verified at all.</strong> WordPress, WooCommerce, and plugin/admin data collection attempts were blocked by a Cloudflare bot-challenge interstitial (HTTP 403), and the legacy Cloudflare WAF rules API returned an authentication error. These are <strong>evidence gaps, not confirmed negative findings</strong>, and are reported as <strong>UNKNOWN</strong> in accordance with audit rules.</li><br><li><strong>WordPress core version could not be determined</strong> from any available telemetry source and is explicitly reported as <strong>UNKNOWN</strong>.</li><br><li>No payment gateway configuration was inspected or reported on, consistent with audit scope restrictions. This report makes <strong>no claim of PCI DSS certification or NIST certification</strong> of any kind.</li></p>
+<p></ul>This report should be read as a <strong>conditional-pass, evidence-limited assessment</strong>. Policy language is largely sound; operational and technical verification remains incomplete in several critical areas.<br><hr><br><h2>2. Scope and Methodology</h2></p>
+<h3>Scope</h3>
+<ul><li>SEC-POL-v2.2 policy document (textual alignment review)</li>
+<li>Live API-based telemetry from Cloudflare, Hostinger, WordPress, and WooCommerce for the domain `example-shop.com`</li>
+<li>Mapping of both to a custom internal control baseline</li>
+<p></ul><h3>Explicitly Out of Scope</h3><br><ul><li>Payment gateway configuration (not inspected, not reported)</li><br><li>Credentials, API keys, passwords, or WordPress application passwords (not exposed in this report)</li><br><li>Formal PCI DSS assessment (SAQ/RoC) — this report is <strong>not</strong> a PCI DSS certification</li><br><li>Formal NIST assessment — NIST does not certify organizations or e-commerce frameworks, and this report is <strong>not</strong> a NIST certification</li></p>
+<p></ul><h3>Methodology</h3><br><li>Reviewed SEC-POL-v2.2 against each control in the custom baseline; classified each as Fully Addressed, Partially Addressed, or Addressed/Implementation Pending.</li><br><li>Collected live telemetry via API calls to Cloudflare, Hostinger, WordPress, and WooCommerce.</li><br><li>Cross-referenced telemetry results against baseline control requirements.</li><br><li>Where telemetry was missing, blocked, or errored, the corresponding control status was recorded as <strong>UNKNOWN</strong> rather than inferred as pass or fail, per audit rules.</li><br><li>A successful API call was <strong>not</strong> treated as evidence of compliance in itself; each response was evaluated for whether it actually demonstrated the control state.</li></p>
+<h3>Baseline Disclosure</h3>
+The control baseline used in this assessment is a <strong>custom internal baseline</strong>, informed by NIST CSF 2.0 and PCI DSS 4.0 principles, and tailored to a Cloudflare/Hostinger/WordPress/WooCommerce environment. <strong>NIST does not publish or certify an official &quot;e-commerce&quot; framework</strong>, and <strong>no PCI SSC certification is claimed or implied</strong> by this baseline or this report.
+<hr>
+<h2>3. Environment Overview</h2>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Observed Detail</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Domain</td>
+<td>example-shop.com</td>
+<td>Hostinger API</td>
+</tr>
+<tr>
+<td>Hosting</td>
+<td>Hostinger, WordPress website type, main vhost</td>
+<td>Hostinger API</td>
+</tr>
+<tr>
+<td>Site created</td>
+<td>2026-08-23</td>
+<td>Hostinger API</td>
+</tr>
+<tr>
+<td>CDN/Edge</td>
+<td>Cloudflare (SSL mode: strict)</td>
+<td>Cloudflare API</td>
+</tr>
+<tr>
+<td>CMS</td>
+<td>WordPress (core version: <strong>UNKNOWN</strong>)</td>
+<td>WordPress API (blocked)</td>
+</tr>
+<tr>
+<td>E-commerce platform</td>
+<td>WooCommerce (version: <strong>UNKNOWN</strong>)</td>
+<td>WooCommerce API (blocked)</td>
+</tr>
+<tr>
+<td>PHP version</td>
+<td><strong>UNKNOWN</strong></td>
+<td>Hostinger API (404 — route not found)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>No further environment detail (server-level configuration, backup schedule, plugin list) could be established from telemetry and is reported as <strong>UNKNOWN</strong> below.<br><hr><br><h2>4. Policy Alignment Findings</h2></p>
+<p>SEC-POL-v2.2 was assessed against 25 baseline controls. Summary of outcomes:</p>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Count</th>
+<th>Example Controls</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fully Addressed</td>
+<td>16</td>
+<td>PR.AA-1, PR.AA-4, PR.DS-1, PR.PS-1, RS.MA-1, RC.RP-1, RC.CO-1</td>
+</tr>
+<tr>
+<td>Partially Addressed</td>
+<td>5</td>
+<td>ID.AM-1, PR.DS-2, PR.PS-2, PR.PS-4, GV.OC-1 (acknowledgement gap)</td>
+</tr>
+<tr>
+<td>Addressed / Implementation Pending or Unverified</td>
+<td>4</td>
+<td>GV.RR-1, DE.AE-1, RS.AN-1, RS.MI-1, RS.CO-1</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Key gaps identified:</strong><br><li><strong>Incident Response Plan (IRP) not attached.</strong> Three Critical-severity Respond-function controls (RS.AN-1, RS.MI-1, RS.CO-1) are incorporated by reference to an IRP that is currently a placeholder link in the policy Appendix. Until attached and reviewed, the organization&#x27;s actual incident response capability is <strong>unverifiable from policy text alone</strong>.</li><br><li><strong>PCI attestation gap (PR.DS-2).</strong> Section 5 mandates WooPayments hosted iFrames and prohibits raw cardholder data handling, but the policy does not require a formal PCI SAQ attestation or dedicated cardholder-data staff acknowledgement, distinct from general policy sign-off.</li><br><li><strong>BYOD/administrative backend restriction is procedural, not technically enforced (PR.PS-4).</strong> Section 3 states a prohibition but does not mandate a technical control (e.g., Cloudflare Access device-posture policy) to enforce it.</li><br><li><strong>Role-overlap documentation outstanding (GV.RR-1).</strong> The policy requires documentation when Security Lead and IT Lead are the same individual; the Appendix confirms this has not yet been produced.</li><br><li><strong>Alerting configuration outstanding (DE.AE-1).</strong> Section 8 is well-drafted but the Appendix confirms alerting thresholds with the hosting/CDN provider have not yet been configured.</li><br><li><strong>Asset inventory incomplete (ID.AM-1).</strong> The first full asset and software inventory required by Section 7 has not yet been completed, per the policy&#x27;s own Appendix.</li></p>
+<p><strong>Assessment:</strong> Policy language closely tracks the baseline at a textual level. The residual risk is concentrated in <strong>implementation and evidentiary maturity</strong>, not drafting quality.<br><hr><br><h2>5. Live Environment Findings</h2></p>
+<p>Live telemetry was collected across Cloudflare, Hostinger, WordPress, and WooCommerce. Findings are summarized below; detailed per-platform findings follow in Sections 6–9.</p>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>Area</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TLS/HTTPS enforcement</td>
+<td><strong>Observed and confirmed active</strong> (Cloudflare edge configuration)</td>
+</tr>
+<tr>
+<td>Cloudflare threat-challenge sensitivity</td>
+<td><strong>Observed as disabled/minimal</strong> (`security_level = essentially_off`)</td>
+</tr>
+<tr>
+<td>Cloudflare WAF custom rules</td>
+<td><strong>UNKNOWN</strong> — legacy API call failed authentication; newer Rulesets API not queried</td>
+</tr>
+<tr>
+<td>WordPress core version, plugin inventory, admin count</td>
+<td><strong>UNKNOWN</strong> — blocked by Cloudflare bot-challenge interstitial (HTTP 403)</td>
+</tr>
+<tr>
+<td>WooCommerce version/system status</td>
+<td><strong>UNKNOWN</strong> — blocked by same interstitial mechanism</td>
+</tr>
+<tr>
+<td>PHP version</td>
+<td><strong>UNKNOWN</strong> — Hostinger API route returned 404</td>
+</tr>
+<tr>
+<td>Backup and auto-update configuration</td>
+<td><strong>UNKNOWN</strong> — no telemetry field present for this domain</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>None of these UNKNOWN results should be interpreted as a confirmed absence of the underlying control. They reflect <strong>collection failures at the edge or API level</strong>, not verified negative findings.<br><hr><br><h2>6. Cloudflare Findings</h2></p>
+<h3>Observed Evidence</h3>
+<ul><li>`ssl_setting.value = &quot;strict&quot;`, certificate status `active`, no validation errors.</li>
+<li>`min_tls_version = &quot;1.2&quot;`.</li>
+<li>`always_use_https = &quot;on&quot;` (modified 2026-09-25).</li>
+<li>HSTS enabled: `max_age=31536000`, `include_subdomains=true`, `preload=false`.</li>
+<li>`security_level.value = &quot;essentially_off&quot;` (modified 2026-09-25).</li>
+<li>WAF custom rules query (legacy `firewall/rules` API): <strong>HTTP 403, &quot;Authentication error&quot; (code 10000).</strong></li>
+<p></ul><h3>Assessment</h3><br><ul><li>TLS/HTTPS enforcement (PR.DS-1) is <strong>directly confirmed as active</strong> via observed configuration. This is a positive finding based on actual evidence, not an assumption.</li><br><li>The `security_level` setting of `essentially_off` is a <strong>directly observed configuration weakness</strong>. Per policy Section 8 and baseline control DE.AE-1, native CDN protective/alerting features must be actively configured, not left at default-off levels. This finding is rated <strong>High severity</strong>.</li><br><li><strong>Cloudflare WAF rule status is explicitly UNKNOWN.</strong> The legacy API call failed with an authentication error, and the platform note confirms this environment may use the newer Rulesets API instead. <strong>This is stated explicitly per audit rules: a failed or absent API response does not prove the absence of WAF rules</strong>, and no claim about WAF rule presence or effectiveness is made in either direction.</li><br><li>A minor hardening opportunity (HSTS preload disabled) is noted as informational, not a compliance failure.</li><br></ul><hr><br><h2>7. Hostinger Findings</h2></p>
+<h3>Observed Evidence</h3>
+<ul><li>One active website record: `example-shop.com`, type `wordpress`, enabled, created 2026-08-23.</li>
+<li>PHP details endpoint returned <strong>HTTP 404</strong> — route not found.</li>
+<p></ul><h3>Assessment</h3><br><ul><li>The existence and basic enablement status of the hosting account is confirmed.</li><br><li><strong>PHP version is UNKNOWN.</strong> The API route attempted does not exist for this account/path combination; this is a <strong>collection/API-path limitation</strong>, not evidence that the PHP version is outdated or non-compliant.</li><br><li><strong>Backup schedule and automatic update configuration are UNKNOWN</strong> — no corresponding telemetry field was returned by any Hostinger API call in this collection cycle.</li><br></ul><hr><br><h2>8. WordPress Findings</h2></p>
+<h3>Observed Evidence</h3>
+<ul><li>Plugin list query: <strong>HTTP 403</strong>, response body was a Cloudflare bot-challenge interstitial page (&quot;Just a moment...&quot;) rather than WordPress API data.</li>
+<li>Administrator count query: <strong>HTTP 403</strong>, same interstitial pattern.</li>
+<p></ul><h3>Assessment</h3><br><ul><li><strong>WordPress core version is UNKNOWN.</strong> No telemetry source in this collection returned the core version, and the designated source for this data point (WooCommerce system_status) was itself blocked. This is stated explicitly as required.</li><br><li><strong>Plugin inventory, plugin versions, and patch status are UNKNOWN.</strong> The 403 response with interstitial HTML indicates the <em>collector</em> was challenged at the Cloudflare edge, not that the underlying WordPress data reflects any particular state.</li><br><li><strong>Administrator account count is UNKNOWN</strong>, for the same reason. No conclusion can be drawn regarding least-privilege posture (PR.AA-2) from this telemetry.</li><br><li>These results represent an <strong>audit-readiness/instrumentation gap</strong>: the current telemetry pipeline cannot verify core security posture (patch currency, admin sprawl) without being challenged by the site&#x27;s own edge protection.</li><br></ul><hr><br><h2>9. WooCommerce Findings</h2></p>
+<h3>Observed Evidence</h3>
+<ul><li>`payment_verification: &quot;disabled&quot;` field was present in the raw telemetry payload but is <strong>explicitly excluded from analysis and reporting</strong> per audit scope restrictions on payment gateway configuration. No assessment, interpretation, or compliance judgment is made regarding this field.</li>
+<li>System status query: <strong>HTTP 403</strong>, same Cloudflare bot-challenge interstitial pattern as WordPress queries.</li>
+<p></ul><h3>Assessment</h3><br><ul><li><strong>WooCommerce version is UNKNOWN.</strong> The system_status endpoint, which would have provided this data, was blocked at the edge.</li><br><li>No WooCommerce configuration data of any kind (other than the excluded payment field) was retrievable in this collection cycle.</li><br></ul><hr><br><h2>10. NIST CSF 2.0 Alignment</h2></p>
+<p>The custom baseline maps controls to NIST CSF 2.0 functions (Govern, Identify, Protect, Detect, Respond, Recover). <strong>This mapping is for internal risk-organization purposes only. NIST does not certify organizations, products, or e-commerce frameworks, and no such certification is claimed.</strong></p>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>CSF 2.0 Function</th>
+<th>Policy Alignment</th>
+<th>Live Telemetry Verification</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Govern</strong></td>
+<td>Strong textual coverage; role-overlap declaration pending</td>
+<td>Not verifiable via technical telemetry (organizational control)</td>
+</tr>
+<tr>
+<td><strong>Identify</strong></td>
+<td>Moderate; inventory incomplete, no active scanning required</td>
+<td>Partially verifiable — asset existence confirmed (Hostinger), but plugin/version inventory UNKNOWN</td>
+</tr>
+<tr>
+<td><strong>Protect</strong></td>
+<td>Strong; BYOD technical enforcement and PCI attestation gaps noted</td>
+<td>TLS/HTTPS confirmed active; RBAC/admin data UNKNOWN</td>
+</tr>
+<tr>
+<td><strong>Detect</strong></td>
+<td>Strong textual coverage; alerting configuration pending</td>
+<td>`security_level` observed disabled (High severity gap); WAF status UNKNOWN</td>
+</tr>
+<tr>
+<td><strong>Respond</strong></td>
+<td>Strong on paper; <strong>unverified</strong> pending IRP attachment</td>
+<td>Not observable via technical telemetry</td>
+</tr>
+<tr>
+<td><strong>Recover</strong></td>
+<td>Strong</td>
+<td>Not observable via technical telemetry</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2>11. Applicable Security-Control Considerations</h2>
+<p>The following control families from the custom baseline (informed by NIST CSF 2.0 and PCI DSS 4.0) are directly implicated by this assessment&#x27;s findings:<br><ul><li><strong>PR.DS-1 (Data-in-Transit Encryption):</strong> Confirmed operating as configured at time of collection.</li><br><li><strong>DE.AE-1 (Anomalous Activity Detection):</strong> Gap identified — Cloudflare `security_level` disabled.</li><br><li><strong>DE.CM-1 (Continuous Monitoring):</strong> WAF rule status unverifiable; logging layer status at application/identity level not observed.</li><br><li><strong>GV.SC-1 / ID.AM-2 / PR.PS-1 (Plugin governance, inventory, patch management):</strong> Cannot be verified from current telemetry; policy language is compliant but operating evidence is absent.</li><br><li><strong>PR.AA-2 (Least Privilege):</strong> Administrator count unverifiable; RBAC state UNKNOWN at the technical layer.</li><br><li><strong>PR.DS-2 (Cardholder Data Protection):</strong> Explicitly out of scope for this technical review; policy-level gap noted separately in Section 4. <strong>No PCI DSS compliance or certification status is claimed.</strong></li><br></ul><hr><br><h2>12. Telemetry Limitations</h2></p>
+<p>The following limitations apply globally to this report and constrain the conclusions that can be drawn:<br><li><strong>Cloudflare bot-challenge interference.</strong> Multiple WordPress and WooCommerce API calls returned HTTP 403 with interstitial &quot;Just a moment...&quot; HTML instead of application data. This indicates the <em>telemetry collector</em> was challenged at the edge — it does <strong>not</strong> confirm or deny any state of the underlying application.</li><br><li><strong>Cloudflare WAF Rulesets not queried.</strong> Only the legacy `firewall/rules` API was attempted, which failed authentication. The newer Rulesets API was not queried in this cycle. <strong>WAF rule presence/absence is explicitly UNKNOWN and is not implied in either direction.</strong></li><br><li><strong>Hostinger PHP version endpoint unavailable.</strong> The attempted API path returned 404. This is an API-path/routing issue, not a security finding.</li><br><li><strong>No backup, auto-update, IAM/IdP, MDM, or incident-response telemetry was collected</strong> in this cycle. These controls remain <strong>UNKNOWN</strong> and require separate documentary or manual verification — their absence from this telemetry feed must not be interpreted as a control failure.</li><br><li><strong>A successful API response (e.g., Hostinger website list) confirms only the specific data returned</strong> (e.g., site existence/enablement) and does not, by itself, establish compliance with any broader control.</li><br><hr><br><h2>13. Prioritized Remediation Plan</h2></p>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>Priority</th>
+<th>Action</th>
+<th>Related Control(s)</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1 — High</td>
+<td>Raise Cloudflare `security_level` from `essentially_off` to at least `medium`; document justification if intentionally lowered</td>
+<td>DE.AE-1</td>
+<td>Live telemetry</td>
+</tr>
+<tr>
+<td>2 — High</td>
+<td>Restore/allow-list telemetry collector access so WordPress, WooCommerce, plugin, and admin data can be verified going forward</td>
+<td>GV.SC-1, ID.AM-2, PR.PS-1, PR.AA-2</td>
+<td>Live telemetry</td>
+</tr>
+<tr>
+<td>3 — Critical</td>
+<td>Finalize and attach the Incident Response Plan; remove placeholder link</td>
+<td>RS.AN-1, RS.MI-1, RS.CO-1</td>
+<td>Policy review</td>
+</tr>
+<tr>
+<td>4 — High</td>
+<td>Add technical enforcement (e.g., Cloudflare Access device-posture policy) for administrative backend restriction, not policy statement alone</td>
+<td>PR.PS-4</td>
+<td>Policy review</td>
+</tr>
+<tr>
+<td>5 — High</td>
+<td>Add PCI SAQ attestation requirement and dedicated cardholder-data staff acknowledgement</td>
+<td>PR.DS-2</td>
+<td>Policy review</td>
+</tr>
+<tr>
+<td>6 — Medium</td>
+<td>Re-query Cloudflare Rulesets API with correctly scoped token to confirm WAF rule presence</td>
+<td>DE.CM-1</td>
+<td>Live telemetry</td>
+</tr>
+<tr>
+<td>7 — Medium</td>
+<td>Manually confirm PHP version and backup schedule via hPanel; add to asset inventory</td>
+<td>PR.PS-1, ID.AM-1, RC.RP-1</td>
+<td>Live telemetry</td>
+</tr>
+<tr>
+<td>8 — Medium</td>
+<td>Close outstanding Appendix items: role-overlap documentation, acknowledgement records, asset inventory completion, alert threshold configuration</td>
+<td>GV.RR-1, GV.OC-1, ID.AM-1, DE.AE-1</td>
+<td>Policy review</td>
+</tr>
+<tr>
+<td>9 — Low</td>
+<td>Enable HSTS preload once subdomain HTTPS support is confirmed</td>
+<td>PR.DS-1</td>
+<td>Live telemetry</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2>14. Evidence/Retest Recommendations</h2>
+<li><strong>Retest WordPress/WooCommerce API access</strong> after allow-listing the collector&#x27;s IP or user-agent at the Cloudflare edge (or via a scoped bypass rule), to obtain WordPress core version, plugin inventory, patch status, WooCommerce version, and administrator count.</li>
+<li><strong>Retest Cloudflare WAF configuration</strong> using the Rulesets API (`/zones/{zone_id}/rulesets`) with an appropriately scoped API token, and manually cross-check in the Cloudflare dashboard.</li>
+<li><strong>Retest Hostinger PHP version and backup configuration</strong> via hPanel directly, since the attempted API route does not exist for this account.</li>
+<li><strong>Collect and review the following documentary evidence</strong> in a follow-up cycle, as none of it is observable via technical telemetry: IdP/SSO configuration and MFA enrollment report, offboarding tickets, RACI matrix or role-overlap declaration, asset and software inventory register, CVE feed subscription confirmation, 60-day access review logs, incident intake log, IRP document, and post-incident review records.</li>
+<li><strong>Re-verify Cloudflare `security_level`</strong> after remediation to confirm the setting was raised and documented.</li>
+<li>Schedule the next full retest to align with the policy&#x27;s 60-day access review cadence and annual policy review cycle.</li>
+<hr>
+<h2>15. Conclusion</h2>
+<p>SEC-POL-v2.2 demonstrates strong textual alignment with the organization&#x27;s custom control baseline, itself informed by — but not certified against — NIST CSF 2.0 and PCI DSS 4.0 principles. The policy&#x27;s own Appendix of Open Items transparently acknowledges that several controls remain unimplemented, which this audit independently corroborates.</p>
+<p>Live technical telemetry confirms that TLS/HTTPS enforcement is correctly configured at the Cloudflare edge, but identifies a <strong>High-severity gap</strong> in Cloudflare&#x27;s threat-challenge sensitivity (`security_level` set to `essentially_off`). Critically, a substantial portion of the WordPress, WooCommerce, and Cloudflare WAF environment <strong>could not be verified at all</strong> due to edge-layer bot-challenge interference and API authentication/routing failures. These are reported strictly as <strong>UNKNOWN</strong>, consistent with the principle that missing or blocked telemetry must never be treated as evidence of either compliance or non-compliance.</p>
+<p>This report does <strong>not</strong> constitute a PCI DSS certification, a NIST certification, or a formal compliance attestation of any kind. It represents a point-in-time assessment against a custom internal baseline, intended to guide prioritized remediation and to establish a foundation for improved telemetry access and evidentiary completeness in future audit cycles.</p>
+
+    </section>
+
+
+</main>
+
+
+</body>
+
+</html>

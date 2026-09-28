@@ -1,0 +1,8 @@
+anthropic>=0.40.0
+requests>=2.31.0
+markdown>=3.5.0
+
+# Optional, local development only: lets you keep credentials in a .env
+# file instead of re-exporting them into the terminal every session.
+# The script runs fine without it — it's wrapped in a try/except.
+python-dotenv>=1.0.0

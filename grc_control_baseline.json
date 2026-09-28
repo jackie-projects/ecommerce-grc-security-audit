@@ -1,0 +1,340 @@
+{
+  "baseline_notice": "This is a custom internal control baseline informed by NIST CSF 2.0 and PCI DSS 4.0 principles, tailored to a Cloudflare/Hostinger/WordPress/WooCommerce environment. It is version-aligned with company policy SEC-POL-v2.2 (effective September 27, 2026). NIST does not publish an official 'e-commerce' framework or certification, and this baseline does not constitute NIST or PCI SSC certification of any kind.",
+  "controls": [
+    {
+      "id": "GV.OC-1",
+      "title": "Organizational Context & Policy Applicability",
+      "framework": "NIST CSF 2.0 (GOVERN - GV.OC) / PCI DSS 4.0 Req 12.1",
+      "category": "Govern",
+      "requirement": "The organization must maintain a formally documented and versioned E-Commerce Platform Security Policy (SEC-POL-v2.2), owned by the Business Owner, applying to all individuals — employees, contractors, or third parties — with administrative access to production systems, source code, hosting accounts, or customer/payment data, regardless of headcount. The policy is reviewed at minimum annually or immediately following any security incident that reveals a coverage gap, and each in-scope individual must document acknowledgement at onboarding and at each annual review.",
+      "evidence_sources": [
+        "SEC-POL-v2.2 policy document with version/date history",
+        "Annual review sign-off record",
+        "Policy distribution/acknowledgement records (onboarding and annual)",
+        "Contractor onboarding agreements"
+      ],
+      "severity": "Medium"
+    },
+    {
+      "id": "GV.RR-1",
+      "title": "Defined Security Roles & Responsibilities",
+      "framework": "NIST CSF 2.0 (GOVERN - GV.RR) / PCI DSS 4.0 Req 12.4, 12.5",
+      "category": "Govern",
+      "requirement": "Roles must be formally defined per policy Section 0: Security Lead (access reviews, plugin approval, monitoring, incident response), IT Lead (infrastructure administration — hosting, DNS, CDN, backups), and Business Owner (policy approval, data export approval, breach notification authority). In a small-team environment where the Security Lead and IT Lead are the same individual, this overlap must be explicitly documented rather than assumed.",
+      "evidence_sources": [
+        "RACI matrix",
+        "Documented role-overlap declaration (if Security Lead = IT Lead)",
+        "HR/IT escalation procedures",
+        "Org chart with named security roles"
+      ],
+      "severity": "Medium"
+    },
+    {
+      "id": "GV.SC-1",
+      "title": "Third-Party Plugin & Supply Chain Risk Governance",
+      "framework": "NIST CSF 2.0 (GOVERN - GV.SC) / PCI DSS 4.0 Req 6.3",
+      "category": "Govern",
+      "requirement": "All third-party plugins, themes, and integrations must be approved solely by the Security Lead prior to deployment, and approved only if: (1) actively maintained with a security update within the last 12 months; (2) sourced from the official WordPress.org repository or a vendor with a documented security disclosure process; and (3) free of open, unpatched High/Critical CVEs at time of review. Each approved component is logged in the asset inventory with approval date and reviewer, and re-evaluated against these criteria at every 60-day access review; components that no longer qualify must be flagged for removal or replacement within 30 days.",
+      "evidence_sources": [
+        "Plugin approval log with named approver and date",
+        "Vendor/plugin risk assessment records",
+        "Staging test sign-offs",
+        "60-day plugin re-evaluation records",
+        "Removal/replacement tickets for disqualified components"
+      ],
+      "severity": "High"
+    },
+    {
+      "id": "ID.AM-1",
+      "title": "IT Asset & Platform Inventory",
+      "framework": "NIST CSF 2.0 (IDENTIFY - ID.AM) / PCI DSS 4.0 Req 2.4, 9.4",
+      "category": "Identify",
+      "requirement": "Maintain a current inventory of production systems and software components covering, at minimum: hosting accounts, domains, CMS/plugin versions and approval dates, corporate endpoints, and third-party service integrations (CDN, payment processor, analytics). The inventory must be reviewed at every 60-day access review and updated immediately upon any change to production infrastructure.",
+      "evidence_sources": [
+        "Asset inventory register",
+        "MDM device list",
+        "Hostinger/Cloudflare account inventory",
+        "60-day inventory review log with reviewer name and date"
+      ],
+      "severity": "Medium"
+    },
+    {
+      "id": "ID.AM-2",
+      "title": "Software & Plugin Inventory",
+      "framework": "NIST CSF 2.0 (IDENTIFY - ID.AM) / PCI DSS 4.0 Req 6.3.2",
+      "category": "Identify",
+      "requirement": "Maintain a current inventory of installed WordPress core version and all third-party plugins/themes, including version, patch status, and approval date per the plugin-approval process.",
+      "evidence_sources": [
+        "Plugin/version inventory report",
+        "WordPress admin dashboard export",
+        "Plugin approval log cross-reference"
+      ],
+      "severity": "Medium"
+    },
+    {
+      "id": "ID.RA-1",
+      "title": "Vulnerability & Threat Identification",
+      "framework": "NIST CSF 2.0 (IDENTIFY - ID.RA) / PCI DSS 4.0 Req 6.3.1, 11.3",
+      "category": "Identify",
+      "requirement": "The Security Lead must subscribe to vendor security advisories or a CVE feed relevant to each inventoried component (WordPress core, plugins, themes, integrations) to operationalize the 48-hour critical patch SLA.",
+      "evidence_sources": [
+        "Vulnerability feed subscriptions per inventoried component",
+        "Vulnerability scan reports",
+        "Patch tracking log"
+      ],
+      "severity": "High"
+    },
+    {
+      "id": "PR.AA-1",
+      "title": "Centralized Authentication & MFA",
+      "framework": "NIST CSF 2.0 (PROTECT - PR.AA) / PCI DSS 4.0 Req 8.3, 8.4",
+      "category": "Protect",
+      "requirement": "Enforce centralized Identity Access Management (SSO via Google Workspace / Microsoft 365 Entra ID) and phishing-resistant MFA (authenticator apps or hardware security keys) across all corporate access points. Direct/independent account creation on WordPress, Cloudflare, or Hostinger is prohibited. Legacy SMS-based MFA is prohibited.",
+      "evidence_sources": [
+        "IdP configuration export",
+        "MFA enrollment report",
+        "SSO enforcement policy screenshots"
+      ],
+      "severity": "Critical"
+    },
+    {
+      "id": "PR.AA-2",
+      "title": "Principle of Least Privilege & Role-Based Access Control",
+      "framework": "NIST CSF 2.0 (PROTECT - PR.AA) / PCI DSS 4.0 Req 7.2, 7.3",
+      "category": "Protect",
+      "requirement": "User access permissions must be assigned based on departmental job function: Customer Support restricted to WooCommerce Shop Manager/Customer Support roles; Marketing restricted to Editor/Contributor roles; only designated IT Leads hold full Administrator rights.",
+      "evidence_sources": [
+        "WooCommerce/WordPress role assignment export",
+        "RBAC matrix",
+        "IAM group membership report"
+      ],
+      "severity": "High"
+    },
+    {
+      "id": "PR.AA-3",
+      "title": "Periodic Access Reviews",
+      "framework": "NIST CSF 2.0 (PROTECT - PR.AA) / PCI DSS 4.0 Req 7.2.4",
+      "category": "Protect",
+      "requirement": "Account privileges and active user lists must be audited every 60 days by the Security Lead to eliminate privilege creep and deactivate abandoned accounts. Each review must be logged in the asset inventory with the reviewer's name and date, and must include verification that TLS/HTTPS enforcement remains active at the edge.",
+      "evidence_sources": [
+        "Access review sign-off log (reviewer name and date)",
+        "60-day audit reports",
+        "Deactivated account tickets",
+        "TLS/HTTPS enforcement verification record"
+      ],
+      "severity": "Medium"
+    },
+    {
+      "id": "PR.AA-4",
+      "title": "User Offboarding & Session Timeout Controls",
+      "framework": "NIST CSF 2.0 (PROTECT - PR.AA) / PCI DSS 4.0 Req 8.2.8, 8.3.11",
+      "category": "Protect",
+      "requirement": "Upon employee departure, HR must notify the Security Lead immediately to revoke all primary SSO access — defined to include the IdP account and every downstream system authenticating through it, not merely the IdP login — within 24 hours. The Security Lead must maintain an offboarding log confirming revocation across all connected systems, retained for one year. Idle sessions on corporate endpoints and web consoles must auto-logout after 15 minutes of inactivity.",
+      "evidence_sources": [
+        "Offboarding ticket timestamps",
+        "IdP deprovisioning logs (IdP and downstream connected apps)",
+        "Session timeout configuration settings",
+        "1-year retained access verification log"
+      ],
+      "severity": "High"
+    },
+    {
+      "id": "PR.DS-1",
+      "title": "Data-in-Transit Encryption",
+      "framework": "NIST CSF 2.0 (PROTECT - PR.DS) / PCI DSS 4.0 Req 4.2.1",
+      "category": "Protect",
+      "requirement": "All web communication and payment transactions must enforce strong, modern network encryption (TLS 1.2+/1.3) with HTTPS force-redirection enabled at all times at the Cloudflare edge. The Security Lead must verify this setting is active as part of each 60-day access review.",
+      "evidence_sources": [
+        "Cloudflare SSL/TLS configuration report",
+        "SSL Labs scan results",
+        "HTTPS force-redirect verification record (60-day review)"
+      ],
+      "severity": "Critical"
+    },
+    {
+      "id": "PR.DS-2",
+      "title": "Cardholder Data Protection via Tokenization",
+      "framework": "NIST CSF 2.0 (PROTECT - PR.DS) / PCI DSS 4.0 Req 3.3, 3.4, 4.2",
+      "category": "Protect",
+      "requirement": "All transactions must route exclusively via WooPayments secure hosted iFrames. Staff are strictly prohibited from recording, processing, or transmitting raw cardholder data via email, chat, or paper.",
+      "evidence_sources": [
+        "WooPayments integration configuration",
+        "PCI SAQ attestation",
+        "Staff acknowledgement of cardholder data handling policy"
+      ],
+      "severity": "Critical"
+    },
+    {
+      "id": "PR.DS-3",
+      "title": "Data Export Control & Retention",
+      "framework": "NIST CSF 2.0 (PROTECT - PR.DS) / PCI DSS 4.0 Req 3.2, 3.2.1",
+      "category": "Protect",
+      "requirement": "Exporting customer database records or PII to local files requires written approval from the Business Owner. Customer logs and export files must be securely deleted after 90 days unless legally required.",
+      "evidence_sources": [
+        "Data export approval records (Business Owner sign-off)",
+        "Data retention/deletion logs",
+        "File deletion audit trail"
+      ],
+      "severity": "High"
+    },
+    {
+      "id": "PR.PS-1",
+      "title": "Patch & Vulnerability Management",
+      "framework": "NIST CSF 2.0 (PROTECT - PR.PS) / PCI DSS 4.0 Req 6.3.3",
+      "category": "Protect",
+      "requirement": "WordPress core and third-party plugins must be kept up-to-date. Critical security vulnerabilities must be patched within 48 hours of disclosure, tracked via the vulnerability monitoring process defined for the asset inventory.",
+      "evidence_sources": [
+        "Patch deployment log",
+        "Plugin/core version history",
+        "Critical CVE remediation timeline records"
+      ],
+      "severity": "Critical"
+    },
+    {
+      "id": "PR.PS-2",
+      "title": "Secure Change Management & Staging Validation",
+      "framework": "NIST CSF 2.0 (PROTECT - PR.PS) / PCI DSS 4.0 Req 6.5.1",
+      "category": "Protect",
+      "requirement": "Personnel are forbidden from installing plugins directly on production. New plugins must undergo security vetting per the plugin approval criteria and testing in the Hostinger staging environment prior to deployment.",
+      "evidence_sources": [
+        "Staging environment test logs",
+        "Change management approval records",
+        "Deployment change tickets"
+      ],
+      "severity": "High"
+    },
+    {
+      "id": "PR.PS-3",
+      "title": "Endpoint & Workstation Hardening",
+      "framework": "NIST CSF 2.0 (PROTECT - PR.PS) / PCI DSS 4.0 Req 5.1, 5.2",
+      "category": "Protect",
+      "requirement": "All laptops used to access company systems must be company-issued, enrolled in corporate MDM, and enforce full-disk encryption, active firewalls, and automatic OS updates.",
+      "evidence_sources": [
+        "MDM enrollment report",
+        "Disk encryption compliance report",
+        "Firewall/patch status dashboard"
+      ],
+      "severity": "High"
+    },
+    {
+      "id": "PR.PS-4",
+      "title": "BYOD & Remote Access Restriction",
+      "framework": "NIST CSF 2.0 (PROTECT - PR.PS) / PCI DSS 4.0 Req 1.4, 8.4",
+      "category": "Protect",
+      "requirement": "Personal computers, unmanaged mobile devices, or public terminals are strictly prohibited from accessing administrative backends — defined as any interface used to configure, manage, or grant access to production systems, including wp-admin, the Cloudflare dashboard/API, Hostinger hPanel, and the WooCommerce admin panel.",
+      "evidence_sources": [
+        "Cloudflare Access device posture policy",
+        "Conditional access rules export",
+        "Blocked access attempt logs"
+      ],
+      "severity": "High"
+    },
+    {
+      "id": "DE.CM-1",
+      "title": "Continuous Security Monitoring",
+      "framework": "NIST CSF 2.0 (DETECT - DE.CM) / PCI DSS 4.0 Req 10.2, 10.4",
+      "category": "Detect",
+      "requirement": "Production systems must have logging enabled at minimum at the edge (CDN/WAF), application (CMS admin actions), and identity (login attempts) layers, with logs retained for a minimum of 90 days, to detect unauthorized access or configuration changes.",
+      "evidence_sources": [
+        "Cloudflare security event logs (90-day retention)",
+        "IdP sign-in logs",
+        "WordPress admin activity logs",
+        "Log retention configuration record"
+      ],
+      "severity": "High"
+    },
+    {
+      "id": "DE.AE-1",
+      "title": "Anomalous Activity & Account Compromise Detection",
+      "framework": "NIST CSF 2.0 (DETECT - DE.AE) / PCI DSS 4.0 Req 10.7, 11.5",
+      "category": "Detect",
+      "requirement": "An alerting mechanism must notify the Security Lead or IT Lead within 24 hours of repeated failed login attempts, changes to administrator accounts, or any change to a security-relevant configuration (e.g., disabling HTTPS enforcement or WAF rules). Where a dedicated SIEM is not in place, actively configured and reviewed native CDN/hosting alerting features satisfy this requirement at minimum viable maturity; default (off) settings do not.",
+      "evidence_sources": [
+        "SIEM/alerting configuration",
+        "Anomaly detection alert history",
+        "Cloudflare WAF alert logs",
+        "24-hour alert notification timestamps"
+      ],
+      "severity": "High"
+    },
+    {
+      "id": "RS.MA-1",
+      "title": "Incident Reporting & Escalation",
+      "framework": "NIST CSF 2.0 (RESPOND - RS.MA) / PCI DSS 4.0 Req 12.10.1",
+      "category": "Respond",
+      "requirement": "Any worker who suspects a compromised account, unauthorized system change, or data leak must report it immediately to security@yourcompany.com. The Security Lead maintains an intake log of all reports, including those later closed as false positives.",
+      "evidence_sources": [
+        "Incident report ticket log",
+        "Security mailbox intake records"
+      ],
+      "severity": "Critical"
+    },
+    {
+      "id": "RS.AN-1",
+      "title": "Incident Analysis & Investigation",
+      "framework": "NIST CSF 2.0 (RESPOND - RS.AN) / PCI DSS 4.0 Req 12.10.1",
+      "category": "Respond",
+      "requirement": "The Security Lead must analyze and confirm reported incidents per the organization's Incident Response Plan (IRP, incorporated by reference) to determine scope, impact, and involvement of cardholder or personal data. The IRP defines detection/triage steps and is reviewed at least annually or after any incident that triggers its use.",
+      "evidence_sources": [
+        "Incident investigation reports",
+        "Forensic analysis notes",
+        "Incident Response Plan document (controlled reference)",
+        "IRP annual/post-incident review record"
+      ],
+      "severity": "Critical"
+    },
+    {
+      "id": "RS.MI-1",
+      "title": "Incident Containment & Mitigation",
+      "framework": "NIST CSF 2.0 (RESPOND - RS.MI) / PCI DSS 4.0 Req 12.10.1",
+      "category": "Respond",
+      "requirement": "Upon confirmation of a breach, the Security Lead must activate the Incident Response Plan to isolate affected systems, per the containment and eradication procedures defined in the IRP.",
+      "evidence_sources": [
+        "Incident Response Plan document",
+        "System isolation/containment action logs"
+      ],
+      "severity": "Critical"
+    },
+    {
+      "id": "RS.CO-1",
+      "title": "Regulatory & Customer Breach Notification",
+      "framework": "NIST CSF 2.0 (RESPOND - RS.CO) / PCI DSS 4.0 Req 12.10.1",
+      "category": "Respond",
+      "requirement": "Upon confirmation of a breach involving cardholder or personal data, impacted parties requiring notification — as applicable, affected customers, hosting/CDN providers, the payment processor and card networks (if cardholder data is implicated), and relevant regulators — must be notified within applicable legal timelines, per the communication plan defined in the IRP.",
+      "evidence_sources": [
+        "Breach notification records",
+        "Regulatory filing timestamps",
+        "Customer communication records",
+        "Hosting/CDN and payment processor notification records"
+      ],
+      "severity": "Critical"
+    },
+    {
+      "id": "RC.RP-1",
+      "title": "System Recovery & Restoration",
+      "framework": "NIST CSF 2.0 (RECOVER - RC.RP) / PCI DSS 4.0 Req 12.10.1",
+      "category": "Recover",
+      "requirement": "Following any incident requiring system restoration, the Security Lead must validate recovery through a documented checklist confirming: system integrity, absence of residual unauthorized access, and restoration of normal monitoring and alerting, before returning systems to production.",
+      "evidence_sources": [
+        "Recovery/restoration checklist",
+        "Post-incident system validation report",
+        "Monitoring/alerting restoration confirmation"
+      ],
+      "severity": "High"
+    },
+    {
+      "id": "RC.CO-1",
+      "title": "Post-Incident Stakeholder Communication",
+      "framework": "NIST CSF 2.0 (RECOVER - RC.CO) / PCI DSS 4.0 Req 12.10.1",
+      "category": "Recover",
+      "requirement": "Within 10 business days of recovery, the Security Lead must document a post-incident review capturing root cause and corrective actions, retained for a minimum of one year. Where the incident affected customers or payment processing, a summary communication must be issued per the notification scope defined for breach communications.",
+      "evidence_sources": [
+        "Post-incident review document (dated within 10 business days of recovery)",
+        "Lessons-learned meeting minutes",
+        "Stakeholder communication log",
+        "1-year retention record"
+      ],
+      "severity": "Medium"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+# Secrets — never commit real credentials
+.env
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Raw, auto-generated report output (Markdown + HTML).
+# These are regenerated every run and may contain unredacted domain
+# names, admin usernames, or other live telemetry pulled straight from
+# your APIs. Keep only the reviewed/redacted report under version
+# control — not these raw files.
+GRC_Compliance_Gap_Report.md
+GRC_Compliance_Gap_Report.html
+
+# OS noise
+.DS_Store
+Thumbs.db
