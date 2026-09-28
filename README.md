@@ -6,6 +6,8 @@ I ran it twice: once to find gaps, and once after fixing them to see what actual
 
 > **Scope note:** This is a personal project on infrastructure I own. It is **not** a NIST or PCI DSS certification. No Qualified Security Assessor (QSA) was involved, and payment-gateway configuration was intentionally excluded. The domain and account identifiers in this repo are redacted or replaced with placeholders.
 
+**Live reports:** [View Scan 1](https://jackie-projects.github.io/ecommerce-grc-security-audit/scan-1-report.html) · [View Scan 2](https://jackie-projects.github.io/ecommerce-grc-security-audit/scan-2-report.html)
+
 ---
 
 ## Why I built this
