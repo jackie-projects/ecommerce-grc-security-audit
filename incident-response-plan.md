@@ -17,7 +17,7 @@ This plan defines the steps to detect, contain, and recover from a security inci
 
 | Role | Name | Contact |
 |---|---|---|
-| Security Lead (incident commander) | (Site Owner) | security@example-shop.comm |
+| Security Lead (incident commander) | (Site Owner) | security@example-shop.com |
 | IT Lead (infrastructure access) | (Site Owner) | security@example-shop.com |
 | Business Owner (external comms / legal decisions) | (Site Owner) | security@example-shop.com |
 | Hosting provider support | Hostinger | https://www.hostinger.com/support/ |
@@ -41,7 +41,7 @@ Report suspected incidents to: **security@example-shop.com.com*
 
 ## Phase 1 — Detection & Triage (Target: within 1 hour of report)
 
-1. Whoever receives the report (via security@yourcompany.com or direct observation) notifies the **Security Lead** immediately.
+1. Whoever receives the report (via security@example-shop.com or direct observation) notifies the **Security Lead** immediately.
 2. Security Lead confirms the report is credible and assigns a severity level (above).
 3. Security Lead opens an incident log (timestamp, description, severity, actions taken from this point forward).
 
